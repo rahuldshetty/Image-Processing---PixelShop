@@ -49,7 +49,6 @@
             this.rotateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cCWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.flipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.horizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -161,31 +160,31 @@
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.copyToolStripMenuItem.Text = "Redo";
             // 
             // cutToolStripMenuItem
             // 
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.cutToolStripMenuItem.Text = "Copy";
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.pasteToolStripMenuItem.Text = "Cut";
             // 
             // pasteToolStripMenuItem1
             // 
             this.pasteToolStripMenuItem1.Name = "pasteToolStripMenuItem1";
-            this.pasteToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.pasteToolStripMenuItem1.Size = new System.Drawing.Size(103, 22);
             this.pasteToolStripMenuItem1.Text = "Paste";
             // 
             // imageToolStripMenuItem
@@ -201,19 +200,19 @@
             // zoomInToolStripMenuItem
             // 
             this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
-            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
             // 
             // zoomOutToolStripMenuItem
             // 
             this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
-            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.zoomOutToolStripMenuItem.Text = "Zoom Out";
             // 
             // showAllToolStripMenuItem
             // 
             this.showAllToolStripMenuItem.Name = "showAllToolStripMenuItem";
-            this.showAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showAllToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.showAllToolStripMenuItem.Text = "Show All";
             // 
             // imageToolStripMenuItem1
@@ -238,8 +237,7 @@
             // 
             this.rotateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cWToolStripMenuItem,
-            this.cCWToolStripMenuItem,
-            this.toolStripMenuItem2});
+            this.cCWToolStripMenuItem});
             this.rotateToolStripMenuItem.Name = "rotateToolStripMenuItem";
             this.rotateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rotateToolStripMenuItem.Text = "Rotate";
@@ -247,20 +245,16 @@
             // cWToolStripMenuItem
             // 
             this.cWToolStripMenuItem.Name = "cWToolStripMenuItem";
-            this.cWToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.cWToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cWToolStripMenuItem.Text = "90* CW";
+            this.cWToolStripMenuItem.Click += new System.EventHandler(this.cWToolStripMenuItem_Click);
             // 
             // cCWToolStripMenuItem
             // 
             this.cCWToolStripMenuItem.Name = "cCWToolStripMenuItem";
-            this.cCWToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.cCWToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cCWToolStripMenuItem.Text = "90* CCW";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(121, 22);
-            this.toolStripMenuItem2.Text = "180*";
+            this.cCWToolStripMenuItem.Click += new System.EventHandler(this.cCWToolStripMenuItem_Click);
             // 
             // flipToolStripMenuItem
             // 
@@ -276,12 +270,14 @@
             this.horizontalToolStripMenuItem.Name = "horizontalToolStripMenuItem";
             this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.horizontalToolStripMenuItem.Text = "Horizontal";
+            this.horizontalToolStripMenuItem.Click += new System.EventHandler(this.horizontalToolStripMenuItem_Click);
             // 
             // verticalToolStripMenuItem
             // 
             this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
             this.verticalToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.verticalToolStripMenuItem.Text = "Vertical";
+            this.verticalToolStripMenuItem.Click += new System.EventHandler(this.verticalToolStripMenuItem_Click);
             // 
             // cropToolStripMenuItem
             // 
@@ -433,6 +429,7 @@
             this.invertToolStripMenuItem.Name = "invertToolStripMenuItem";
             this.invertToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.invertToolStripMenuItem.Text = "Invert";
+            this.invertToolStripMenuItem.Click += new System.EventHandler(this.invertToolStripMenuItem_Click);
             // 
             // sepiaToolStripMenuItem
             // 
@@ -548,7 +545,6 @@
         private System.Windows.Forms.ToolStripMenuItem rotateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cWToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cCWToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem flipToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem horizontalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verticalToolStripMenuItem;

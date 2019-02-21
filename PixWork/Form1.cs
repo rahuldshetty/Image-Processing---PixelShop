@@ -96,6 +96,35 @@ namespace PixWork
             tabList[selectedTab].convertToGray();
         }
 
+        private void horizontalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].flipHorizontal();
+        }
+
+        private void verticalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].flipVertical();
+        }
+
+        private void invertToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].invert();
+        }
+
+        private void cCWToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].rotateImage90CCW();
+        }
+
+        private void cWToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].rotateImage90CW();
+        }
     }
 
     class Tab
@@ -160,21 +189,96 @@ namespace PixWork
 
                 }
             isGray = true;
-        
-            updateChange();
+           
+            
+            updateChange(temp);
 
-             bitmap = temp;
-            pictureBox.Image = bitmap;
+           
+            
 
         }
 
-        public void updateChange()
+        public void flipHorizontal()
+        {
+            Bitmap temp = new Bitmap(width, height);
+
+            for (int i=0;i<width;i++)
+                for(int j=0;j<height;j++)
+                {
+                    temp.SetPixel(i, j, bitmap.GetPixel(width-i-1,j));
+                }
+
+            updateChange(temp);
+        }
+
+        public void invert()
+        {
+            Bitmap temp = new Bitmap(width, height);
+
+            for (int i = 0; i < width; i++)
+                for (int j = 0; j < height; j++)
+                {
+                    Color pixel = bitmap.GetPixel(i, j);
+                    Color newPixel = Color.FromArgb(255-pixel.R,255-pixel.G,255-pixel.B);
+                    temp.SetPixel(i, j, newPixel);
+                }
+
+            updateChange(temp);
+        }
+
+
+        public void flipVertical()
+        {
+            Bitmap temp = new Bitmap(width, height);
+
+            for (int i = 0; i < width; i++)
+                for (int j = 0; j < height; j++)
+                {
+                    temp.SetPixel(i, j, bitmap.GetPixel(i ,height - j -1 ));
+                }
+
+            updateChange(temp);
+        }
+
+
+        public void updateChange(Bitmap temp)
         {
             isChangesSaved = false;
-            tab.Text += "*";
+            if(isChangesSaved==true)
+                tab.Text += "*";
+            bitmap = temp;
+            pictureBox.Image = bitmap;
+            width = bitmap.Width;
+            height = bitmap.Height;
         }
-        
 
+        public void rotateImage90CCW()
+        {
+            Bitmap temp = new Bitmap(height,width);
+            for(int i=0;i<height;i++)
+                for(int j=0;j<width;j++)
+                {
+                    temp.SetPixel(i, j, bitmap.GetPixel(j, i));
+                                   
+                }
+            updateChange(temp);
+            flipVertical();
+                      
+
+        }
+
+        internal void rotateImage90CW()
+        {
+            Bitmap temp = new Bitmap(height, width);
+            for (int i = 0; i < height; i++)
+                for (int j = 0; j < width; j++)
+                {
+                    temp.SetPixel(i, j, bitmap.GetPixel(j, i));
+
+                }
+            updateChange(temp);
+            flipHorizontal();
+        }
     }
 
 
