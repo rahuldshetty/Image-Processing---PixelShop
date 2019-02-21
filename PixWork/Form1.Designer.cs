@@ -314,67 +314,68 @@
             this.boxToolStripMenuItem,
             this.gaussianToolStripMenuItem});
             this.blurToolStripMenuItem.Name = "blurToolStripMenuItem";
-            this.blurToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.blurToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.blurToolStripMenuItem.Text = "Blur";
             // 
             // boxToolStripMenuItem
             // 
             this.boxToolStripMenuItem.Name = "boxToolStripMenuItem";
-            this.boxToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.boxToolStripMenuItem.Text = "Box";
+            this.boxToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.boxToolStripMenuItem.Text = "Box ( Mean )";
+            this.boxToolStripMenuItem.Click += new System.EventHandler(this.boxToolStripMenuItem_Click);
             // 
             // gaussianToolStripMenuItem
             // 
             this.gaussianToolStripMenuItem.Name = "gaussianToolStripMenuItem";
-            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gaussianToolStripMenuItem.Text = "Gaussian";
             // 
             // sharperToolStripMenuItem
             // 
             this.sharperToolStripMenuItem.Name = "sharperToolStripMenuItem";
-            this.sharperToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.sharperToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sharperToolStripMenuItem.Text = "Sharper";
             // 
             // unsharpenToolStripMenuItem
             // 
             this.unsharpenToolStripMenuItem.Name = "unsharpenToolStripMenuItem";
-            this.unsharpenToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.unsharpenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.unsharpenToolStripMenuItem.Text = "Unsharpen";
             // 
             // noiseToolStripMenuItem
             // 
             this.noiseToolStripMenuItem.Name = "noiseToolStripMenuItem";
-            this.noiseToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.noiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.noiseToolStripMenuItem.Text = "Noise";
             // 
             // deNoiseToolStripMenuItem
             // 
             this.deNoiseToolStripMenuItem.Name = "deNoiseToolStripMenuItem";
-            this.deNoiseToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.deNoiseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deNoiseToolStripMenuItem.Text = "DeNoise";
             // 
             // diffuseToolStripMenuItem
             // 
             this.diffuseToolStripMenuItem.Name = "diffuseToolStripMenuItem";
-            this.diffuseToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.diffuseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.diffuseToolStripMenuItem.Text = "Diffuse";
             // 
             // pixelateToolStripMenuItem
             // 
             this.pixelateToolStripMenuItem.Name = "pixelateToolStripMenuItem";
-            this.pixelateToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.pixelateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pixelateToolStripMenuItem.Text = "Pixelate";
             // 
             // waterSwirlToolStripMenuItem
             // 
             this.waterSwirlToolStripMenuItem.Name = "waterSwirlToolStripMenuItem";
-            this.waterSwirlToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.waterSwirlToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.waterSwirlToolStripMenuItem.Text = "Water Swirl";
             // 
             // findEdgesToolStripMenuItem
             // 
             this.findEdgesToolStripMenuItem.Name = "findEdgesToolStripMenuItem";
-            this.findEdgesToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.findEdgesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.findEdgesToolStripMenuItem.Text = "Find Edges";
             // 
             // adjustmentsToolStripMenuItem

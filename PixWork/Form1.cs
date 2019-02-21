@@ -125,6 +125,12 @@ namespace PixWork
             int selectedTab = getSelectedTab();
             tabList[selectedTab].rotateImage90CW();
         }
+
+        private void boxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].meanBlur();
+        }
     }
 
     class Tab
@@ -279,6 +285,19 @@ namespace PixWork
             updateChange(temp);
             flipHorizontal();
         }
+
+        internal void meanBlur()
+        {
+            Bitmap blur = (Bitmap) bitmap.Clone();
+
+            
+
+
+            
+        }
+
+            
+
     }
 
 
