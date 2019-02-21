@@ -44,6 +44,14 @@ namespace PixWork
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            foreach(Tab tb in tabList)
+            {
+                if(tb.getChangeState()== false)
+                {
+                    MessageBox.Show("Save your changes before closing.", "Save Prompt");
+                    return;
+                }
+            }
             Application.Exit();
         }
 
@@ -82,6 +90,12 @@ namespace PixWork
             return tabControl1.SelectedIndex; 
         }
 
+        private void grayscaleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].convertToGray();
+        }
+
     }
 
     class Tab
@@ -90,8 +104,10 @@ namespace PixWork
         public string filepath;
         public TabPage tab;
         public Bitmap bitmap;
+        public int width, height;
 
         private bool isChangesSaved;
+        private bool isGray;
 
         public Tab()
         {
@@ -103,6 +119,7 @@ namespace PixWork
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             tab.AutoScroll = true;
             isChangesSaved = true;
+            isGray = false;
 
 
         }
@@ -111,6 +128,8 @@ namespace PixWork
         {
             bitmap = image;
             pictureBox.Image = image;
+            width = bitmap.Width;
+            height = bitmap.Height;
         }
 
         
@@ -120,12 +139,41 @@ namespace PixWork
             tab.Text = path;
             bitmap.Save(path);
             isChangesSaved = true;
+            tab.Text = filepath;
         }
 
         public bool getChangeState()
         {
             return isChangesSaved;
         }
+
+        public void convertToGray()
+        {
+            Bitmap temp = new Bitmap(width, height);
+            for(int i=0;i<width;i++)
+                for(int j=0;j<height;j++)
+                {
+                    Color pixel = bitmap.GetPixel(i, j);
+                    int grayscale = (int)(pixel.R * 0.3) + (int)(pixel.G * 0.59) + (int)(pixel.B * 0.11);
+                    Color newpixel = Color.FromArgb(grayscale, grayscale, grayscale);
+                    temp.SetPixel(i, j, newpixel);
+
+                }
+            isGray = true;
+        
+            updateChange();
+
+             bitmap = temp;
+            pictureBox.Image = bitmap;
+
+        }
+
+        public void updateChange()
+        {
+            isChangesSaved = false;
+            tab.Text += "*";
+        }
+        
 
     }
 
