@@ -1,0 +1,10 @@
+D:\Dev\Projects\PixWork\PixWork\bin\Debug\PixWork.exe.config
+D:\Dev\Projects\PixWork\PixWork\bin\Debug\PixWork.exe
+D:\Dev\Projects\PixWork\PixWork\bin\Debug\PixWork.pdb
+D:\Dev\Projects\PixWork\PixWork\obj\Debug\PixWork.csprojAssemblyReference.cache
+D:\Dev\Projects\PixWork\PixWork\obj\Debug\PixWork.Form1.resources
+D:\Dev\Projects\PixWork\PixWork\obj\Debug\PixWork.Properties.Resources.resources
+D:\Dev\Projects\PixWork\PixWork\obj\Debug\PixWork.csproj.GenerateResource.cache
+D:\Dev\Projects\PixWork\PixWork\obj\Debug\PixWork.csproj.CoreCompileInputs.cache
+D:\Dev\Projects\PixWork\PixWork\obj\Debug\PixWork.exe
+D:\Dev\Projects\PixWork\PixWork\obj\Debug\PixWork.pdb
