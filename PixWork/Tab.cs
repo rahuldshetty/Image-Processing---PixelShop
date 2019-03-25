@@ -180,6 +180,7 @@ namespace PixWork
             };
 
 
+
             blur = applyKernal(kernal, 9);
             updateChange(blur);
         }
@@ -217,10 +218,19 @@ namespace PixWork
                     if (avgB < 0) avgB = 0;
                     if (avgR < 0) avgR = 0;
                     if (avgG < 0) avgG = 0;
-                    if (avgB > 255) avgB = 255;
-                    if (avgR > 255) avgR = 255;
-                    if (avgG > 255) avgG = 255;
-                    res.SetPixel(i, j, Color.FromArgb((int)(avgR / div), (int)(avgG / div), (int)(avgB / div)));
+
+                    double R = (avgR*1.0)/ div;
+                    double G = (avgG * 1.0) / div;
+                    double B = (avgB * 1.0) / div;
+
+                    if (R > 255) R = 255;
+                    if (G > 255) G = 255;
+                    if (B > 255) B = 255;
+
+                   ;
+
+                  
+                    res.SetPixel(i, j, Color.FromArgb((int)(R), (int)(G), (int)(B)));
 
                 }
 

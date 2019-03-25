@@ -8,3 +8,13 @@ D:\Dev\Projects\PixWork\PixWork\obj\Debug\PixWork.csproj.GenerateResource.cache
 D:\Dev\Projects\PixWork\PixWork\obj\Debug\PixWork.csproj.CoreCompileInputs.cache
 D:\Dev\Projects\PixWork\PixWork\obj\Debug\PixWork.exe
 D:\Dev\Projects\PixWork\PixWork\obj\Debug\PixWork.pdb
+C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\bin\Debug\PixWork.exe.config
+C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\bin\Debug\PixWork.exe
+C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\bin\Debug\PixWork.pdb
+C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.csprojAssemblyReference.cache
+C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.Form1.resources
+C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.Properties.Resources.resources
+C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.csproj.GenerateResource.cache
+C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.csproj.CoreCompileInputs.cache
+C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.exe
+C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.pdb

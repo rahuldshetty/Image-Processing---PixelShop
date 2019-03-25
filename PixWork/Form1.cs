@@ -200,6 +200,11 @@ namespace PixWork
             int selectedTab = getSelectedTab();
             tabList[selectedTab].emobss();
         }
+
+        private void imageToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
         
 

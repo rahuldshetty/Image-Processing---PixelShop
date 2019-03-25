@@ -61,6 +61,8 @@
             this.gaussian5X5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sharperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sharpenLowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sharpenMediumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sharpenHighToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.noiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deNoiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.diffuseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,6 +74,7 @@
             this.highToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobelEdgeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobelEdgeVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.embossToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adjustmentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brigthnessAndContrastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hueAndSaturationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,9 +92,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.sharpenMediumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sharpenHighToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.embossToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -169,31 +169,31 @@
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copyToolStripMenuItem.Text = "Redo";
             // 
             // cutToolStripMenuItem
             // 
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cutToolStripMenuItem.Text = "Copy";
             // 
             // pasteToolStripMenuItem
             // 
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pasteToolStripMenuItem.Text = "Cut";
             // 
             // pasteToolStripMenuItem1
             // 
             this.pasteToolStripMenuItem1.Name = "pasteToolStripMenuItem1";
-            this.pasteToolStripMenuItem1.Size = new System.Drawing.Size(103, 22);
+            this.pasteToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.pasteToolStripMenuItem1.Text = "Paste";
             // 
             // imageToolStripMenuItem
@@ -209,19 +209,19 @@
             // zoomInToolStripMenuItem
             // 
             this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
-            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
             // 
             // zoomOutToolStripMenuItem
             // 
             this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
-            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.zoomOutToolStripMenuItem.Text = "Zoom Out";
             // 
             // showAllToolStripMenuItem
             // 
             this.showAllToolStripMenuItem.Name = "showAllToolStripMenuItem";
-            this.showAllToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.showAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.showAllToolStripMenuItem.Text = "Show All";
             // 
             // imageToolStripMenuItem1
@@ -235,11 +235,12 @@
             this.imageToolStripMenuItem1.Name = "imageToolStripMenuItem1";
             this.imageToolStripMenuItem1.Size = new System.Drawing.Size(52, 20);
             this.imageToolStripMenuItem1.Text = "Image";
+            this.imageToolStripMenuItem1.Click += new System.EventHandler(this.imageToolStripMenuItem1_Click);
             // 
             // imageScaleToolStripMenuItem
             // 
             this.imageScaleToolStripMenuItem.Name = "imageScaleToolStripMenuItem";
-            this.imageScaleToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.imageScaleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.imageScaleToolStripMenuItem.Text = "Image Scale";
             // 
             // rotateToolStripMenuItem
@@ -248,20 +249,20 @@
             this.cWToolStripMenuItem,
             this.cCWToolStripMenuItem});
             this.rotateToolStripMenuItem.Name = "rotateToolStripMenuItem";
-            this.rotateToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.rotateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rotateToolStripMenuItem.Text = "Rotate";
             // 
             // cWToolStripMenuItem
             // 
             this.cWToolStripMenuItem.Name = "cWToolStripMenuItem";
-            this.cWToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.cWToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cWToolStripMenuItem.Text = "90* CW";
             this.cWToolStripMenuItem.Click += new System.EventHandler(this.cWToolStripMenuItem_Click);
             // 
             // cCWToolStripMenuItem
             // 
             this.cCWToolStripMenuItem.Name = "cCWToolStripMenuItem";
-            this.cCWToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.cCWToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cCWToolStripMenuItem.Text = "90* CCW";
             this.cCWToolStripMenuItem.Click += new System.EventHandler(this.cCWToolStripMenuItem_Click);
             // 
@@ -271,33 +272,33 @@
             this.horizontalToolStripMenuItem,
             this.verticalToolStripMenuItem});
             this.flipToolStripMenuItem.Name = "flipToolStripMenuItem";
-            this.flipToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.flipToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.flipToolStripMenuItem.Text = "Flip";
             // 
             // horizontalToolStripMenuItem
             // 
             this.horizontalToolStripMenuItem.Name = "horizontalToolStripMenuItem";
-            this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.horizontalToolStripMenuItem.Text = "Horizontal";
             this.horizontalToolStripMenuItem.Click += new System.EventHandler(this.horizontalToolStripMenuItem_Click);
             // 
             // verticalToolStripMenuItem
             // 
             this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
-            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.verticalToolStripMenuItem.Text = "Vertical";
             this.verticalToolStripMenuItem.Click += new System.EventHandler(this.verticalToolStripMenuItem_Click);
             // 
             // cropToolStripMenuItem
             // 
             this.cropToolStripMenuItem.Name = "cropToolStripMenuItem";
-            this.cropToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.cropToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cropToolStripMenuItem.Text = "Crop";
             // 
             // grayscaleToolStripMenuItem
             // 
             this.grayscaleToolStripMenuItem.Name = "grayscaleToolStripMenuItem";
-            this.grayscaleToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.grayscaleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.grayscaleToolStripMenuItem.Text = "Grayscale";
             this.grayscaleToolStripMenuItem.Click += new System.EventHandler(this.grayscaleToolStripMenuItem_Click);
             // 
@@ -330,21 +331,21 @@
             // boxToolStripMenuItem
             // 
             this.boxToolStripMenuItem.Name = "boxToolStripMenuItem";
-            this.boxToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.boxToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.boxToolStripMenuItem.Text = "Box ( Mean )";
             this.boxToolStripMenuItem.Click += new System.EventHandler(this.boxToolStripMenuItem_Click);
             // 
             // gaussianToolStripMenuItem
             // 
             this.gaussianToolStripMenuItem.Name = "gaussianToolStripMenuItem";
-            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.gaussianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gaussianToolStripMenuItem.Text = "Gaussian ( 3 x 3 )";
             this.gaussianToolStripMenuItem.Click += new System.EventHandler(this.gaussianToolStripMenuItem_Click);
             // 
             // gaussian5X5ToolStripMenuItem
             // 
             this.gaussian5X5ToolStripMenuItem.Name = "gaussian5X5ToolStripMenuItem";
-            this.gaussian5X5ToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.gaussian5X5ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gaussian5X5ToolStripMenuItem.Text = "Gaussian ( 5 x 5 )";
             this.gaussian5X5ToolStripMenuItem.Click += new System.EventHandler(this.gaussian5X5ToolStripMenuItem_Click);
             // 
@@ -361,9 +362,23 @@
             // sharpenLowToolStripMenuItem
             // 
             this.sharpenLowToolStripMenuItem.Name = "sharpenLowToolStripMenuItem";
-            this.sharpenLowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sharpenLowToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.sharpenLowToolStripMenuItem.Text = "Sharpen ( Low )";
             this.sharpenLowToolStripMenuItem.Click += new System.EventHandler(this.sharpenLowToolStripMenuItem_Click);
+            // 
+            // sharpenMediumToolStripMenuItem
+            // 
+            this.sharpenMediumToolStripMenuItem.Name = "sharpenMediumToolStripMenuItem";
+            this.sharpenMediumToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.sharpenMediumToolStripMenuItem.Text = "Sharpen ( Medium )";
+            this.sharpenMediumToolStripMenuItem.Click += new System.EventHandler(this.sharpenMediumToolStripMenuItem_Click);
+            // 
+            // sharpenHighToolStripMenuItem
+            // 
+            this.sharpenHighToolStripMenuItem.Name = "sharpenHighToolStripMenuItem";
+            this.sharpenHighToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.sharpenHighToolStripMenuItem.Text = "Sharpen ( High )";
+            this.sharpenHighToolStripMenuItem.Click += new System.EventHandler(this.sharpenHighToolStripMenuItem_Click);
             // 
             // noiseToolStripMenuItem
             // 
@@ -441,6 +456,13 @@
             this.sobelEdgeVerticalToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.sobelEdgeVerticalToolStripMenuItem.Text = "Sobel Edge ( Vertical )";
             this.sobelEdgeVerticalToolStripMenuItem.Click += new System.EventHandler(this.sobelEdgeVerticalToolStripMenuItem_Click);
+            // 
+            // embossToolStripMenuItem
+            // 
+            this.embossToolStripMenuItem.Name = "embossToolStripMenuItem";
+            this.embossToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.embossToolStripMenuItem.Text = "Emboss";
+            this.embossToolStripMenuItem.Click += new System.EventHandler(this.embossToolStripMenuItem_Click);
             // 
             // adjustmentsToolStripMenuItem
             // 
@@ -566,27 +588,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(734, 580);
             this.tabControl1.TabIndex = 0;
-            // 
-            // sharpenMediumToolStripMenuItem
-            // 
-            this.sharpenMediumToolStripMenuItem.Name = "sharpenMediumToolStripMenuItem";
-            this.sharpenMediumToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.sharpenMediumToolStripMenuItem.Text = "Sharpen ( Medium )";
-            this.sharpenMediumToolStripMenuItem.Click += new System.EventHandler(this.sharpenMediumToolStripMenuItem_Click);
-            // 
-            // sharpenHighToolStripMenuItem
-            // 
-            this.sharpenHighToolStripMenuItem.Name = "sharpenHighToolStripMenuItem";
-            this.sharpenHighToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.sharpenHighToolStripMenuItem.Text = "Sharpen ( High )";
-            this.sharpenHighToolStripMenuItem.Click += new System.EventHandler(this.sharpenHighToolStripMenuItem_Click);
-            // 
-            // embossToolStripMenuItem
-            // 
-            this.embossToolStripMenuItem.Name = "embossToolStripMenuItem";
-            this.embossToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.embossToolStripMenuItem.Text = "Emboss";
-            this.embossToolStripMenuItem.Click += new System.EventHandler(this.embossToolStripMenuItem_Click);
             // 
             // Form1
             // 
