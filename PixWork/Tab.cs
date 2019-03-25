@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,10 +16,12 @@ namespace PixWork
         public string filepath;
         public TabPage tab;
         public Bitmap bitmap;
-        public int width, height;
+        public int width, height,currentBrightness;
 
         private bool isChangesSaved, textAlreadyChanged;
         private bool isGray;
+
+        public int currentContrast { get; private set; }
 
         public Tab()
         {
@@ -31,7 +35,8 @@ namespace PixWork
             isChangesSaved = true;
             textAlreadyChanged = false;
             isGray = false;
-
+            currentBrightness = 0;
+            currentContrast = 0;
 
         }
 
@@ -44,10 +49,15 @@ namespace PixWork
             height = bitmap.Height;
         }
 
+        public void preSave()
+        {
+            bitmap = new Bitmap(pictureBox.Image);
+        }
 
         public void saveImage(string path)
         {
-            filepath = path;
+            preSave();
+             filepath = path;
             tab.Text = path;
             bitmap.Save(path);
             isChangesSaved = true;
@@ -61,7 +71,7 @@ namespace PixWork
 
         public void convertToGray()
         {
-
+            preSave();
             Bitmap temp = new Bitmap(width, height);
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
@@ -84,6 +94,7 @@ namespace PixWork
 
         public void flipHorizontal()
         {
+            preSave();
             Bitmap temp = new Bitmap(width, height);
 
             for (int i = 0; i < width; i++)
@@ -97,6 +108,7 @@ namespace PixWork
 
         public void invert()
         {
+            preSave();
             Bitmap temp = new Bitmap(width, height);
 
             for (int i = 0; i < width; i++)
@@ -113,6 +125,7 @@ namespace PixWork
 
         public void flipVertical()
         {
+            preSave();
             Bitmap temp = new Bitmap(width, height);
 
             for (int i = 0; i < width; i++)
@@ -127,6 +140,7 @@ namespace PixWork
 
         public void updateChange(Bitmap temp)
         {
+
             isChangesSaved = false;
             if (textAlreadyChanged == false)
             {
@@ -142,6 +156,7 @@ namespace PixWork
 
         public void rotateImage90CCW()
         {
+            preSave();
             Bitmap temp = new Bitmap(height, width);
             for (int i = 0; i < height; i++)
                 for (int j = 0; j < width; j++)
@@ -157,6 +172,7 @@ namespace PixWork
 
         internal void rotateImage90CW()
         {
+            preSave();
             Bitmap temp = new Bitmap(height, width);
             for (int i = 0; i < height; i++)
                 for (int j = 0; j < width; j++)
@@ -185,58 +201,244 @@ namespace PixWork
             updateChange(blur);
         }
 
+        public void performHisto()
+        {
+            preSave();
+            Bitmap temp =  HistEq(bitmap);      
 
+            updateChange(temp);
+
+        }
+
+        public Bitmap HistEq(Bitmap img)
+        {
+            int w = img.Width;
+            int h = img.Height;
+            BitmapData sd = img.LockBits(new Rectangle(0, 0, w, h),
+                ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            int bytes = sd.Stride * sd.Height;
+            byte[] buffer = new byte[bytes];
+            byte[] result = new byte[bytes];
+            Marshal.Copy(sd.Scan0, buffer, 0, bytes);
+            img.UnlockBits(sd);
+            int current = 0;
+            double[] pn = new double[256];
+            for (int p = 0; p < bytes; p += 4)
+            {
+                pn[buffer[p]]++;
+            }
+            for (int prob = 0; prob < pn.Length; prob++)
+            {
+                pn[prob] /= (w * h);
+            }
+            for (int y = 0; y < h; y++)
+            {
+                for (int x = 0; x < w; x++)
+                {
+                    current = y * sd.Stride + x * 4;
+                    double sum = 0;
+                    for (int i = 0; i < buffer[current]; i++)
+                    {
+                        sum += pn[i];
+                    }
+                    for (int c = 0; c < 3; c++)
+                    {
+                        result[current + c] = (byte)Math.Floor(255 * sum);
+                    }
+                    result[current + 3] = 255;
+                }
+            }
+            Bitmap res = new Bitmap(w, h);
+            BitmapData rd = res.LockBits(new Rectangle(0, 0, w, h),
+                ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+            Marshal.Copy(result, 0, rd.Scan0, bytes);
+            res.UnlockBits(rd);
+            return res;
+        }
 
         Bitmap applyKernal(int[,] kernel, float div)
         {
-            Bitmap res = new Bitmap(width, height);
-
-            int kernelWidth = kernel.GetLength(0);
-            int kernelHeight = kernel.Length / kernelWidth;
-
-
-            System.Console.WriteLine(kernelHeight + "sas");
-            for (int i = 0; i < width; i++)
+            preSave();
+            Bitmap bmp = bitmap;
+            unsafe
             {
-                for (int j = 0; j < height; j++)
+                int kernelWidth = kernel.GetLength(0);
+                int kernelHeight = kernel.Length / kernelWidth;
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
+                for (int y = 0; y < lockBitmap.Height; y++)
                 {
-                    int avgR = 0, avgG = 0, avgB = 0;
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
+                        int avgR = 0;
+                        int avgB = 0;
+                        int avgG = 0;
 
-                    for (int x = -1; x < kernelWidth - 1; x++)
-                        for (int y = -1; y < kernelHeight - 1; y++)
-                        {
-                            if (x + i >= 0 && x + i < width && y + j >= 0 && y + j < height)
+                        for (int i = -1; i < kernelWidth - 1; i++)
+                            for (int j = -1; j < kernelHeight - 1; j++)
                             {
+                                if (x + i >= 0 && x + i < width && y + j >= 0 && y + j < height)
+                                {
+                                    Color c = lockBitmap.GetPixel(x + i, y + j);
+                                    avgR += kernel[i + 1, j + 1] * c.R;
+                                    avgG += kernel[i + 1, j + 1] * c.G;
+                                    avgB += kernel[i + 1, j + 1] * c.B;
+                                }
 
-
-                                avgR += kernel[x + 1, y + 1] * bitmap.GetPixel(x + i, y + j).R;
-                                avgG += kernel[x + 1, y + 1] * bitmap.GetPixel(x + i, y + j).G;
-                                avgB += kernel[x + 1, y + 1] * bitmap.GetPixel(x + i, y + j).B;
                             }
 
-                        }
-                    if (avgB < 0) avgB = 0;
-                    if (avgR < 0) avgR = 0;
-                    if (avgG < 0) avgG = 0;
+                        if (avgB < 0) avgB = 0;
+                        if (avgR < 0) avgR = 0;
+                        if (avgG < 0) avgG = 0;
+                        double R = (avgR * 1.0) / div;
+                        double G = (avgG * 1.0) / div;
+                        double B = (avgB * 1.0) / div;
+                        if (R > 255) R = 255;
+                        if (G > 255) G = 255;
+                        if (B > 255) B = 255;
+                        lockBitmap.SetPixel(x, y, Color.FromArgb((int)(R), (int)(G), (int)(B)));
 
-                    double R = (avgR*1.0)/ div;
-                    double G = (avgG * 1.0) / div;
-                    double B = (avgB * 1.0) / div;
-
-                    if (R > 255) R = 255;
-                    if (G > 255) G = 255;
-                    if (B > 255) B = 255;
-
-                   ;
-
-                  
-                    res.SetPixel(i, j, Color.FromArgb((int)(R), (int)(G), (int)(B)));
-
+                    }
                 }
+                lockBitmap.UnlockBits();
+            }
+                return bmp;
+     
+        }
 
+        internal void updateBrightness(int value)
+        {
+            Bitmap backup = new Bitmap( width,height);
+            Bitmap bmp = bitmap;
+            currentBrightness = value;
+            unsafe
+            {
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
+
+                LockBitmap lockBitmap2 = new LockBitmap(backup);
+                lockBitmap2.LockBits();
+
+                for (int y = 0; y < lockBitmap.Height; y++)
+                {
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
+                        Color c = lockBitmap.GetPixel(x , y );
+                        int avgR = c.R + value;
+                        int avgB = c.B + value;
+                        int avgG = c.G + value;
+
+                    
+
+                        if (avgB < 0) avgB = 1;
+                        if (avgR < 0) avgR = 1;
+                        if (avgG < 0) avgG = 1;
+                        if (avgB > 255) avgB = 255;
+                        if (avgR > 255) avgR = 255;
+                        if (avgG > 255) avgG = 255;
+                        lockBitmap2.SetPixel(x, y, Color.FromArgb((int)(avgR), (int)(avgG), (int)(avgB)));
+
+                    }
+                }
+                lockBitmap2.UnlockBits();
+                lockBitmap.UnlockBits();
+                pictureBox.Image = backup;
+            }
+          
+        }
+
+        internal void updateContrast(int value)
+        {
+            Bitmap backup = new Bitmap(width, height);
+            Bitmap bmp = bitmap;
+            currentContrast = value;
+            double contrast = (100.0 + value) / value;
+            unsafe
+            {
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
+
+                LockBitmap lockBitmap2 = new LockBitmap(backup);
+                lockBitmap2.LockBits();
+
+                for (int y = 0; y < lockBitmap.Height; y++)
+                {
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
+                        Color c = lockBitmap.GetPixel(x, y);
+
+                        double R = c.R / 255.0;
+                        R -= 0.5;
+                        R *= contrast;
+                        R += 0.5;
+                        R *= 255.0;
+                        if (R < 0) R = 0;
+                        if (R > 255) R = 255;
+
+
+                        double G = c.G / 255.0;
+                        G -= 0.5;
+                        G *= contrast;
+                        G += 0.5;
+                        G *= 255.0;
+                        if (G < 0) G = 0;
+                        if (G > 255) G = 255;
+
+
+                        double B = c.B / 255.0;
+                        B -= 0.5;
+                        B *= contrast;
+                        B += 0.5;
+                        B *= 255.0;
+                        if (B < 0) B = 0;
+                        if (B > 255) B = 255;
+
+                        lockBitmap2.SetPixel(x, y, Color.FromArgb((int)(R), (int)(G), (int)(B)));
+
+                    }
+                }
+                lockBitmap2.UnlockBits();
+                lockBitmap.UnlockBits();
+                pictureBox.Image = backup;
             }
 
-            return res;
+        }
+
+
+
+
+        internal void LGauss()
+        {
+            Bitmap blur;
+
+            int[,] kernal = new int[5, 5]
+            {
+                {0,0,-1,0,0},
+                {0,-1,-2,-1,0},
+                {-1,-2,16,-2,-1},
+                {0,-1,-2,-1,0},
+                {0,0,-1,0,0 }
+            };
+
+
+            blur = applyKernal(kernal, 1);
+            updateChange(blur);
+        }
+
+        internal void laplacian()
+        {
+            Bitmap blur;
+
+            int[,] kernal = new int[3, 3]
+            {
+                {0,-1,0},
+                {-1,4,-1},
+                {0,-1,0}
+            };
+
+
+            blur = applyKernal(kernal, 1);
+            updateChange(blur);
         }
 
         internal void emobss()

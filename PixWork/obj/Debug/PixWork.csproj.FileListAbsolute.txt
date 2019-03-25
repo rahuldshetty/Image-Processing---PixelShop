@@ -18,3 +18,13 @@ C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Process
 C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.csproj.CoreCompileInputs.cache
 C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.exe
 C:\Users\Asus\Desktop\PRojects\Image-Processing---PixelShop-master\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.pdb
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.csprojAssemblyReference.cache
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.Form1.resources
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.Properties.Resources.resources
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.csproj.GenerateResource.cache
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.csproj.CoreCompileInputs.cache
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.exe
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.pdb
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\PixWork.exe.config
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\PixWork.exe
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\PixWork.pdb

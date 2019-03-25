@@ -86,6 +86,8 @@ namespace PixWork
 
         }
 
+
+
         int getSelectedTab()
         {
             return tabControl1.SelectedIndex; 
@@ -111,8 +113,7 @@ namespace PixWork
 
         private void invertToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int selectedTab = getSelectedTab();
-            tabList[selectedTab].invert();
+         
         }
 
         private void cCWToolStripMenuItem_Click(object sender, EventArgs e)
@@ -204,6 +205,106 @@ namespace PixWork
         private void imageToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void histogramEquilizationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].performHisto();
+        }
+
+        private void deNoiseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void diffuseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pixelateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void waterSwirlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void brigthnessAndContrastToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sepiaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void solarizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void thresholdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void oldPhotoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void laplacianToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].laplacian();
+        }
+
+        private void laplacianOfGaussianToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].LGauss();
+
+        }
+
+        private void inverToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].invert();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].updateBrightness(trackBar1.Value);
+
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            trackBar1.Value = tabList[selectedTab].currentBrightness;
+            trackBar2.Value = tabList[selectedTab].currentContrast;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].updateContrast(trackBar2.Value);
         }
     }
         
