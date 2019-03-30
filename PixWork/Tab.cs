@@ -73,52 +73,95 @@ namespace PixWork
         {
             preSave();
             Bitmap temp = new Bitmap(width, height);
-            for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
+            Bitmap bmp = bitmap;
+            unsafe
+            {
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
+
+                LockBitmap lockBitmap2 = new LockBitmap(temp);
+                lockBitmap2.LockBits();
+
+                for (int y = 0; y < lockBitmap.Height; y++)
                 {
-                    Color pixel = bitmap.GetPixel(i, j);
-                    int grayscale = (int)(pixel.R * 0.3) + (int)(pixel.G * 0.59) + (int)(pixel.B * 0.11);
-                    Color newpixel = Color.FromArgb(grayscale, grayscale, grayscale);
-                    temp.SetPixel(i, j, newpixel);
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
+              
+                        Color pixel = lockBitmap.GetPixel(x, y);
+                        int grayscale = (int)(pixel.R * 0.3) + (int)(pixel.G * 0.59) + (int)(pixel.B * 0.11);
+                        lockBitmap2.SetPixel(x, y, Color.FromArgb((int)(grayscale), (int)(grayscale), (int)(grayscale)));
 
+                    }
                 }
+                lockBitmap2.UnlockBits();
+                lockBitmap.UnlockBits();
+                pictureBox.Image = temp;
+            }
             isGray = true;
-
-
             updateChange(temp);
-
-
-
-
         }
 
         public void flipHorizontal()
         {
             preSave();
             Bitmap temp = new Bitmap(width, height);
+            Bitmap bmp = bitmap;
+            unsafe
+            {
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
 
-            for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
+                LockBitmap lockBitmap2 = new LockBitmap(temp);
+                lockBitmap2.LockBits();
+
+                for (int y = 0; y < lockBitmap.Height; y++)
                 {
-                    temp.SetPixel(i, j, bitmap.GetPixel(width - i - 1, j));
-                }
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
 
+                        Color pixel = lockBitmap.GetPixel( width - x -1, y);
+                      
+                        lockBitmap2.SetPixel(x, y, pixel);
+
+                    }
+                }
+                lockBitmap2.UnlockBits();
+                lockBitmap.UnlockBits();
+                pictureBox.Image = temp;
+            }
             updateChange(temp);
+
+
         }
 
         public void invert()
         {
             preSave();
             Bitmap temp = new Bitmap(width, height);
+            Bitmap bmp = bitmap;
+            unsafe
+            {
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
 
-            for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
+                LockBitmap lockBitmap2 = new LockBitmap(temp);
+                lockBitmap2.LockBits();
+
+                for (int y = 0; y < lockBitmap.Height; y++)
                 {
-                    Color pixel = bitmap.GetPixel(i, j);
-                    Color newPixel = Color.FromArgb(255 - pixel.R, 255 - pixel.G, 255 - pixel.B);
-                    temp.SetPixel(i, j, newPixel);
-                }
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
 
+                        Color pixel = lockBitmap.GetPixel(x , y);
+                        Color newPixel = Color.FromArgb(255 - pixel.R, 255 - pixel.G, 255 - pixel.B);
+                        lockBitmap2.SetPixel(x, y, newPixel);
+
+                    }
+                }
+                lockBitmap2.UnlockBits();
+                lockBitmap.UnlockBits();
+                pictureBox.Image = temp;
+            }
             updateChange(temp);
         }
 
@@ -127,13 +170,30 @@ namespace PixWork
         {
             preSave();
             Bitmap temp = new Bitmap(width, height);
+            Bitmap bmp = bitmap;
+            unsafe
+            {
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
 
-            for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
+                LockBitmap lockBitmap2 = new LockBitmap(temp);
+                lockBitmap2.LockBits();
+
+                for (int y = 0; y < lockBitmap.Height; y++)
                 {
-                    temp.SetPixel(i, j, bitmap.GetPixel(i, height - j - 1));
-                }
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
 
+                        Color pixel = lockBitmap.GetPixel(x, height - y - 1);
+
+                        lockBitmap2.SetPixel(x, y, pixel);
+
+                    }
+                }
+                lockBitmap2.UnlockBits();
+                lockBitmap.UnlockBits();
+                pictureBox.Image = temp;
+            }
             updateChange(temp);
         }
 
@@ -158,12 +218,27 @@ namespace PixWork
         {
             preSave();
             Bitmap temp = new Bitmap(height, width);
-            for (int i = 0; i < height; i++)
-                for (int j = 0; j < width; j++)
-                {
-                    temp.SetPixel(i, j, bitmap.GetPixel(j, i));
+            Bitmap bmp = bitmap;
+            unsafe
+            {
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
 
+                LockBitmap lockBitmap2 = new LockBitmap(temp);
+                lockBitmap2.LockBits();
+
+                for (int y = 0; y < lockBitmap.Height; y++)
+                {
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
+                        Color pixel = lockBitmap.GetPixel(x, y);
+                        lockBitmap2.SetPixel(y, x, pixel);
+                    }
                 }
+                lockBitmap2.UnlockBits();
+                lockBitmap.UnlockBits();
+                pictureBox.Image = temp;
+            }
             updateChange(temp);
             flipVertical();
 
@@ -174,12 +249,27 @@ namespace PixWork
         {
             preSave();
             Bitmap temp = new Bitmap(height, width);
-            for (int i = 0; i < height; i++)
-                for (int j = 0; j < width; j++)
-                {
-                    temp.SetPixel(i, j, bitmap.GetPixel(j, i));
+            Bitmap bmp = bitmap;
+            unsafe
+            {
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
 
+                LockBitmap lockBitmap2 = new LockBitmap(temp);
+                lockBitmap2.LockBits();
+
+                for (int y = 0; y < lockBitmap.Height; y++)
+                {
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
+                        Color pixel = lockBitmap.GetPixel(x, y);
+                        lockBitmap2.SetPixel(y, x, pixel);
+                    }
                 }
+                lockBitmap2.UnlockBits();
+                lockBitmap.UnlockBits();
+                pictureBox.Image = temp;
+            }
             updateChange(temp);
             flipHorizontal();
         }
@@ -404,6 +494,105 @@ namespace PixWork
 
         }
 
+        internal void dilation(int kernelWidth, int kernelHeight )
+        {
+            preSave();
+            Bitmap backup = new Bitmap(width, height);
+            Bitmap bmp = bitmap;
+            unsafe
+            {         
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
+
+                LockBitmap lockBitmap2 = new LockBitmap(backup);
+                lockBitmap2.LockBits();
+
+                for (int y = 0; y < lockBitmap.Height; y++)
+                {
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
+                        Color c = lockBitmap.GetPixel(x, y);
+
+                        int maxR = -1;
+                        int maxG = -1;
+                        int maxB = -1;
+
+                        for (int i = -1; i < kernelWidth - 1; i++)
+                            for (int j = -1; j < kernelHeight - 1; j++)
+                            {
+                                if (x + i >= 0 && x + i < width && y + j >= 0 && y + j < height)
+                                {
+                                    Color c1 = lockBitmap.GetPixel(x + i, y + j);
+
+                                    if (c1.R > maxR) maxR = c1.R;
+                                    if (c1.G > maxG) maxG = c1.G;
+                                    if (c1.B > maxB) maxB = c1.B;
+
+                                }
+
+                            }
+
+
+                        lockBitmap2.SetPixel(x, y, Color.FromArgb((int)(maxR), (int)(maxG), (int)(maxB)));
+
+                    }
+                }
+                lockBitmap2.UnlockBits();
+                lockBitmap.UnlockBits();
+                pictureBox.Image = backup;
+            }
+
+        }
+
+        internal void erosion(int kernelWidth, int kernelHeight)
+        {
+            preSave();
+            Bitmap backup = new Bitmap(width, height);
+            Bitmap bmp = bitmap;
+            unsafe
+            {
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
+
+                LockBitmap lockBitmap2 = new LockBitmap(backup);
+                lockBitmap2.LockBits();
+
+                for (int y = 0; y < lockBitmap.Height; y++)
+                {
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
+                        Color c = lockBitmap.GetPixel(x, y);
+
+                        int maxR = 257;
+                        int maxG = 257;
+                        int maxB = 257;
+
+                        for (int i = -1; i < kernelWidth - 1; i++)
+                            for (int j = -1; j < kernelHeight - 1; j++)
+                            {
+                                if (x + i >= 0 && x + i < width && y + j >= 0 && y + j < height)
+                                {
+                                    Color c1 = lockBitmap.GetPixel(x + i, y + j);
+
+                                    if (c1.R < maxR) maxR = c1.R;
+                                    if (c1.G < maxG) maxG = c1.G;
+                                    if (c1.B < maxB) maxB = c1.B;
+
+                                }
+
+                            }
+
+
+                        lockBitmap2.SetPixel(x, y, Color.FromArgb((int)(maxR), (int)(maxG), (int)(maxB)));
+
+                    }
+                }
+                lockBitmap2.UnlockBits();
+                lockBitmap.UnlockBits();
+                pictureBox.Image = backup;
+            }
+
+        }
 
 
 

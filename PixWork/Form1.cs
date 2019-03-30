@@ -306,6 +306,51 @@ namespace PixWork
             int selectedTab = getSelectedTab();
             tabList[selectedTab].updateContrast(trackBar2.Value);
         }
+
+        private void dilationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dilationToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].dilation(3,3);
+        }
+
+        private void erosionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].erosion(3, 3);
+        }
+
+        private void dilation5X5ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].dilation(5, 5);
+        }
+
+        private void erosion5X5ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].erosion(5, 5);
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].erosion(3, 3);
+            tabList[selectedTab].dilation(3, 3);
+
+        }
+
+        private void closeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].dilation(3, 3);
+            tabList[selectedTab].erosion(3, 3);
+           
+        }
     }
         
 
