@@ -18,18 +18,27 @@ namespace PixWork
         public string filename;
         public TabPage tab;
         public Bitmap bitmap;
-        public int width, height,currentBrightness;
+        public int width, height, currentBrightness;
+
+        Boolean alreadyComputed = false;
+
+        double[] histoR = new double[256];
+        double[] histoG = new double[256];
+        double[] histoB = new double[256];
+
+        Bitmap balancedR, balancedG, balancedB;
 
         private bool isChangesSaved, textAlreadyChanged;
-        private bool isGray;
+
 
         public int currentContrast { get; private set; }
-        System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        System.Windows.Forms.DataVisualization.Charting.Chart chartr=null,chartg=null,chartb=null;
 
-        Stack<Bitmap> stack=new Stack<Bitmap>();
+        Stack<Bitmap> stack = new Stack<Bitmap>();
+        Stack<Boolean> grayscaleList = new Stack<Boolean>();
 
 
-        public Tab(System.Windows.Forms.DataVisualization.Charting.Chart  chart)
+        public Tab(System.Windows.Forms.DataVisualization.Charting.Chart chart1, System.Windows.Forms.DataVisualization.Charting.Chart chart2, System.Windows.Forms.DataVisualization.Charting.Chart chart3)
         {
             tab = new TabPage();
             pictureBox = new PictureBox();
@@ -40,10 +49,21 @@ namespace PixWork
             tab.AutoScroll = true;
             isChangesSaved = true;
             textAlreadyChanged = false;
-            isGray = false;
+
             currentBrightness = 0;
             currentContrast = 0;
-            chart1 = chart;
+            chartr = chart1;
+            chartg = chart2;
+            chartb = chart3;
+        }
+
+        public Boolean IsGray()
+        {
+            if(grayscaleList.Count!=0)
+            {
+                return grayscaleList.Peek();
+            }
+            return false;
         }
 
         public void loadImage(Bitmap image)
@@ -53,24 +73,27 @@ namespace PixWork
             pictureBox.Image = image;
             width = bitmap.Width;
             height = bitmap.Height;
-            findHistoGraph(bitmap);
+            updateHistographh();
             stack.Push(bitmap);
+            grayscaleList.Push(false);
         }
 
         public void preSave()
         {
             stack.Push(bitmap);
+            grayscaleList.Push(grayscaleList.Peek());
             bitmap = new Bitmap(pictureBox.Image);
         }
 
         public void saveImage(string path)
         {
             preSave();
-             filepath = path;
+            filepath = path;
             tab.Text = path;
             bitmap.Save(path);
             isChangesSaved = true;
-            tab.Text = filepath;
+            filename = System.IO.Path.GetFileName(filepath);
+            tab.Text = filename;
         }
 
         public bool getChangeState()
@@ -95,7 +118,7 @@ namespace PixWork
                 {
                     for (int x = 0; x < lockBitmap.Width; x++)
                     {
-              
+
                         Color pixel = lockBitmap.GetPixel(x, y);
                         int grayscale = (int)(pixel.R * 0.3) + (int)(pixel.G * 0.59) + (int)(pixel.B * 0.11);
                         lockBitmap2.SetPixel(x, y, Color.FromArgb((int)(grayscale), (int)(grayscale), (int)(grayscale)));
@@ -106,7 +129,7 @@ namespace PixWork
                 lockBitmap.UnlockBits();
                 pictureBox.Image = temp;
             }
-            isGray = true;
+            grayscaleList.Push(true);
             updateChange(temp);
         }
 
@@ -128,8 +151,8 @@ namespace PixWork
                     for (int x = 0; x < lockBitmap.Width; x++)
                     {
 
-                        Color pixel = lockBitmap.GetPixel( width - x -1, y);
-                      
+                        Color pixel = lockBitmap.GetPixel(width - x - 1, y);
+
                         lockBitmap2.SetPixel(x, y, pixel);
 
                     }
@@ -161,7 +184,7 @@ namespace PixWork
                     for (int x = 0; x < lockBitmap.Width; x++)
                     {
 
-                        Color pixel = lockBitmap.GetPixel(x , y);
+                        Color pixel = lockBitmap.GetPixel(x, y);
                         Color newPixel = Color.FromArgb(255 - pixel.R, 255 - pixel.G, 255 - pixel.B);
                         lockBitmap2.SetPixel(x, y, newPixel);
 
@@ -209,7 +232,7 @@ namespace PixWork
 
         public void updateChange(Bitmap temp)
         {
-
+            alreadyComputed = false;
             isChangesSaved = false;
             if (textAlreadyChanged == false)
             {
@@ -221,7 +244,7 @@ namespace PixWork
             pictureBox.Image = bitmap;
             width = bitmap.Width;
             height = bitmap.Height;
-            findHistoGraph(bitmap);
+            updateHistographh();
         }
 
         internal void undo()
@@ -230,6 +253,10 @@ namespace PixWork
             {
                 Bitmap top = stack.Pop();
                 updateChange(top);
+
+                if (grayscaleList.Count != 1)
+                    grayscaleList.Pop();
+
             }
         }
 
@@ -310,17 +337,62 @@ namespace PixWork
             updateChange(blur);
         }
 
-        public void performHisto()
+        public void performHisto(Boolean status)
         {
             preSave();
-            Bitmap temp =  HistEq(bitmap);      
-
+            Bitmap temp;
+            if (status)
+                temp = colorHisto(bitmap);
+            else
+                temp = HistEq(bitmap);
             updateChange(temp);
-
+            updateHistographh();
         }
+
+        
+        
+        public Bitmap colorHisto(Bitmap bitmap)
+        {
+            Bitmap rImage = utility.getRComponent(bitmap);
+            Bitmap gImage = utility.getGComponent(bitmap);
+            Bitmap bImage = utility.getBComponent(bitmap);
+
+            Bitmap balancedR = HistEq(rImage);
+            Bitmap balancedG = HistEq(gImage);
+            Bitmap balancedB = HistEq(bImage);
+
+            Bitmap res1 = new Bitmap(width, height);
+
+            LockBitmap result = new LockBitmap(res1);
+            LockBitmap resultR = new LockBitmap(balancedR);
+            LockBitmap resultG = new LockBitmap(balancedG);
+            LockBitmap resultB = new LockBitmap(balancedB);
+            result.LockBits();
+            resultR.LockBits();
+            resultG.LockBits();
+            resultB.LockBits();
+            for (int y=0;y<result.Height;y++)
+                for(int x=0;x<result.Width;x++)
+                {
+                    Color c = Color.FromArgb( resultR.GetPixel(x,y).B , resultG.GetPixel(x,y).B , resultB.GetPixel(x,y).B);
+                    result.SetPixel(x, y, c);
+
+                }
+            result.UnlockBits();
+            resultR.UnlockBits();
+            resultG.UnlockBits();
+            resultB.UnlockBits();
+
+
+            return res1;
+        }
+
+
 
         public Bitmap HistEq(Bitmap img)
         {
+
+            Bitmap temp =(Bitmap)img.Clone();
 
             int w = img.Width;
             int h = img.Height;
@@ -333,6 +405,7 @@ namespace PixWork
             img.UnlockBits(sd);
             int current = 0;
             double[] pn = new double[256];
+
             for (int p = 0; p < bytes; p += 4)
             {
                 pn[buffer[p]]++;
@@ -365,30 +438,102 @@ namespace PixWork
             return res;
         }
 
-        internal void findHistoGraph(Bitmap img)
+        internal void findHistoGraph(Bitmap imgr,Bitmap imgg,Bitmap imgb)
         {
-          
-            chart1.Series["Series1"].Points.Clear();
-            BitmapData sd = img.LockBits(new Rectangle(0, 0, img.Width, img.Height),
-            ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
-            int bytes = sd.Stride * sd.Height;
-            byte[] buffer = new byte[bytes];
-            byte[] result = new byte[bytes];
-            Marshal.Copy(sd.Scan0, buffer, 0, bytes);
-            img.UnlockBits(sd);
-
-            int current = 0;
-            double[] pn = new double[256];
-            for (int p = 0; p < bytes; p += 4)
+            unsafe
             {
-                pn[buffer[p]]++;
+                chartr.Series["Series1"].Points.Clear();
+                chartg.Series["Series1"].Points.Clear();
+                chartb.Series["Series1"].Points.Clear();
+                if (!alreadyComputed)
+                {
+                   
+                    histoR = new double[256];
+                    histoG = new double[256];
+                    histoB = new double[256];
+                   
+                    BitmapData sd = imgr.LockBits(new Rectangle(0, 0, imgr.Width, imgr.Height),
+                    ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+                    int bytes = sd.Stride * sd.Height;
+                    byte[] buffer = new byte[bytes];
+                    byte[] result = new byte[bytes];
+                    Marshal.Copy(sd.Scan0, buffer, 0, bytes);
+                    imgr.UnlockBits(sd);
+                    int current = 0;
+
+                    for (int p = 0; p < bytes; p += 4)
+                    {
+                        histoR[buffer[p]]++;
+                    }
+
+                    sd = imgg.LockBits(new Rectangle(0, 0, imgg.Width, imgg.Height),
+                    ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+                    bytes = sd.Stride * sd.Height;
+                    buffer = new byte[bytes];
+                    result = new byte[bytes];
+                    Marshal.Copy(sd.Scan0, buffer, 0, bytes);
+                    imgg.UnlockBits(sd);
+                    current = 0;
+                 
+                    for (int p = 0; p < bytes; p += 4)
+                    {
+                        histoG[buffer[p]]++;
+                    }
+                    sd = imgb.LockBits(new Rectangle(0, 0, imgb.Width, imgb.Height),
+                    ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+                    bytes = sd.Stride * sd.Height;
+                    buffer = new byte[bytes];
+                    result = new byte[bytes];
+                    Marshal.Copy(sd.Scan0, buffer, 0, bytes);
+                    imgb.UnlockBits(sd);
+
+                    current = 0;
+                    
+                    for (int p = 0; p < bytes; p += 4)
+                    {
+                        histoB[buffer[p]]++;
+                    }
+
+
+                }
+
+                for (int i = 0; i < 256; i++)
+                {
+                    chartr.Series["Series1"].Points.AddXY(i, histoR[i]);
+                }
+
+                for (int i = 0; i < 256; i++)
+                {
+                    chartg.Series["Series1"].Points.AddXY(i, histoG[i]);
+                }
+
+                for (int i = 0; i < 256; i++)
+                {
+                    chartb.Series["Series1"].Points.AddXY(i, histoB[i]);
+                }
+                alreadyComputed = true;
             }
 
-            for(int i=0;i<256;i++)
+        }
+
+
+        internal void updateHistographh()
+        {
+            Bitmap temp = new Bitmap( pictureBox.Image );
+            if (!alreadyComputed)
             {
-                chart1.Series["Series1"].Points.AddXY(i, pn[i]);
+                Bitmap rImage = utility.getRComponent(temp);
+                Bitmap gImage = utility.getGComponent(temp);
+                Bitmap bImage = utility.getBComponent(temp);
+
+            
+                balancedR = HistEq(rImage);
+                balancedG = HistEq(gImage);
+                balancedB = HistEq(bImage);
             }
-           
+
+            findHistoGraph(balancedR, balancedG, balancedB);
+
         }
 
         Bitmap applyKernal(int[,] kernel, float div)
@@ -437,8 +582,8 @@ namespace PixWork
                 }
                 lockBitmap.UnlockBits();
             }
-                return bmp;
-     
+            return bmp;
+
         }
 
         internal void prewittHorizontal()
@@ -474,7 +619,8 @@ namespace PixWork
 
         internal void updateBrightness(int value)
         {
-            Bitmap backup = new Bitmap( width,height);
+
+            Bitmap backup = new Bitmap(width, height);
             Bitmap bmp = bitmap;
             currentBrightness = value;
             unsafe
@@ -489,12 +635,12 @@ namespace PixWork
                 {
                     for (int x = 0; x < lockBitmap.Width; x++)
                     {
-                        Color c = lockBitmap.GetPixel(x , y );
+                        Color c = lockBitmap.GetPixel(x, y);
                         int avgR = c.R + value;
                         int avgB = c.B + value;
                         int avgG = c.G + value;
 
-                    
+
 
                         if (avgB < 0) avgB = 1;
                         if (avgR < 0) avgR = 1;
@@ -510,14 +656,15 @@ namespace PixWork
                 lockBitmap2.UnlockBits();
                 lockBitmap.UnlockBits();
                 pictureBox.Image = backup;
-                findHistoGraph(backup);
+                updateHistographh();
             }
-           
+
 
         }
 
         internal void updateContrast(int value)
         {
+
             Bitmap backup = new Bitmap(width, height);
             Bitmap bmp = bitmap;
             currentContrast = value;
@@ -570,16 +717,23 @@ namespace PixWork
                 lockBitmap.UnlockBits();
                 pictureBox.Image = backup;
             }
-            findHistoGraph(new Bitmap(pictureBox.Image));
+            updateHistographh();
         }
 
-        internal void dilation(int kernelWidth, int kernelHeight )
+        internal void dilation(int kernelWidth, int kernelHeight)
         {
             preSave();
+            bitmap = Dilation(bitmap, kernelWidth, kernelHeight);
+            pictureBox.Image = bitmap;
+            updateChange(bitmap);
+        }
+
+        internal Bitmap Dilation(Bitmap bitmap, int kernelWidth, int kernelHeight)
+        {
             Bitmap backup = new Bitmap(width, height);
             Bitmap bmp = bitmap;
             unsafe
-            {         
+            {
                 LockBitmap lockBitmap = new LockBitmap(bmp);
                 lockBitmap.LockBits();
 
@@ -618,14 +772,13 @@ namespace PixWork
                 }
                 lockBitmap2.UnlockBits();
                 lockBitmap.UnlockBits();
-                pictureBox.Image = backup;
             }
-
+            return backup;
         }
 
-        internal void erosion(int kernelWidth, int kernelHeight)
+        internal Bitmap Erosion(Bitmap bitmap, int kernelWidth, int kernelHeight)
         {
-            preSave();
+
             Bitmap backup = new Bitmap(width, height);
             Bitmap bmp = bitmap;
             unsafe
@@ -668,12 +821,19 @@ namespace PixWork
                 }
                 lockBitmap2.UnlockBits();
                 lockBitmap.UnlockBits();
-                pictureBox.Image = backup;
-            }
 
+            }
+            return backup;
         }
 
 
+        internal void erosion(int kernelWidth, int kernelHeight)
+        {
+            preSave();
+            bitmap = Erosion(bitmap, kernelWidth, kernelHeight);
+            pictureBox.Image = bitmap;
+            updateChange(bitmap);
+        }
 
         internal void LGauss()
         {
@@ -729,11 +889,14 @@ namespace PixWork
         {
             Bitmap blur;
 
-            int[,] kernal = new int[3, 3]
+            int[,] kernal = new int[5, 5]
             {
-                {1,1,1},
-                {1,-7,1},
-                {1,1,1}
+                {0,-1,1,-1,0},
+                 {-1,2,-4,2,-1},
+                 {-1,-4,13,-4,-1},
+                 {-1,-2,4,-2,-1},
+                 {0,-1,1,-1,0}
+
             };
 
 
@@ -789,21 +952,7 @@ namespace PixWork
             updateChange(blur);
         }
 
-        internal void findEdgeLow()
-        {
-            Bitmap blur;
 
-            int[,] kernal = new int[3, 3]
-            {
-                {1,0,-1},
-                {0,0,0},
-                {-1,0,1}
-            };
-
-
-            blur = applyKernal(kernal, 1);
-            updateChange(blur);
-        }
 
         internal void findEdgeMedium()
         {
@@ -811,9 +960,9 @@ namespace PixWork
 
             int[,] kernal = new int[3, 3]
             {
-                {0,1,0},
-                {1,-4,1},
-                {0,1,0}
+                {-1,-2,-1},
+                {-2,13,-2},
+                {-1,-2,-1}
             };
 
 
@@ -888,6 +1037,134 @@ namespace PixWork
             updateChange(blur);
         }
 
+        internal Bitmap operation(Bitmap a,Bitmap b,int operation)
+        {
+            Bitmap backup = new Bitmap(width, height);
+            Bitmap bmp = a;
+            Bitmap bmp2 = b;
+            unsafe
+            {
+                LockBitmap lockBitmap = new LockBitmap(bmp);
+                lockBitmap.LockBits();
+
+                LockBitmap lockBitmap2 = new LockBitmap(backup);
+                lockBitmap2.LockBits();
+
+                LockBitmap lockBitmap3 = new LockBitmap(bmp2);
+                lockBitmap3.LockBits();
+
+
+                for (int y = 0; y < lockBitmap.Height; y++)
+                {
+                    for (int x = 0; x < lockBitmap.Width; x++)
+                    {
+                        Color c1 = lockBitmap.GetPixel(x, y);
+                        Color c2 = lockBitmap3.GetPixel(x, y);
+
+                        int R=0, G=0, B=0;
+
+                        switch(operation)
+                        {
+                            case '+':
+                                R = c1.R + c2.R;
+                                G = c1.G + c2.G;
+                                B = c1.B + c2.B;
+                                break;
+
+                            case '-':
+                                R = c1.R - c2.R;
+                                G = c1.G - c2.G;
+                                B = c1.B - c2.B;
+                                break;
+
+                            case '^':
+                                R = c1.R ^ c2.R;
+                                G = c1.G ^ c2.G;
+                                B = c1.B ^ c2.B;
+                                break;
+
+                            case '&':
+                                R = c1.R & c2.R;
+                                G = c1.G & c2.G;
+                                B = c1.B & c2.B;
+                                break;
+
+                            case '|':
+                                R = c1.R | c2.R;
+                                G = c1.G | c2.G;
+                                B = c1.B | c2.B;
+                                break;
+                        }
+
+                        if (R < 0) R = 0;
+                        if (G < 0) G = 0;
+                        if (B < 0) B = 0;
+                        if (R > 255) R = 255;
+                        if (G > 255) G = 255;
+                        if (B > 255) B = 255;
+
+                        lockBitmap2.SetPixel(x, y, Color.FromArgb(R, G, B) );
+
+                    }
+                }
+                lockBitmap2.UnlockBits();
+                lockBitmap.UnlockBits();
+                lockBitmap3.UnlockBits();
+            }
+            return backup;
+
+        }
+
+        internal void perimeter()
+        {
+             Bitmap temp = Dilation(bitmap, 3, 3);
+            temp = operation(bitmap, temp, '^');
+            /*
+            Bitmap skel = new Bitmap(bitmap.Width, bitmap.Height);
+            skel = operation(skel, temp, '|');
+            */updateChange(temp);
+
+        }
+
+        internal void updateComponent(Boolean status,Boolean status2,Boolean status3)
+        {
+
+            Bitmap temp = new Bitmap(width, height);
+            LockBitmap output = new LockBitmap(temp);
+            LockBitmap input = new LockBitmap(bitmap);
+            unsafe
+            {
+                output.LockBits();
+                input.LockBits();
+                for (int y = 0; y < output.Height; y++)
+                {
+                    for (int x = 0; x < output.Width; x++)
+                    {
+                        Color c = input.GetPixel(x,y);
+                        int r=0, g=0, b=0;
+                        if (status == true)
+                        {
+                            r = c.R;
+                        }
+                        if(status2==true)
+                        {
+                            g = c.G;
+                        }
+                        if(status3==true)
+                        {
+                            b = c.B;
+                        }
+                        Color newpix = Color.FromArgb(r, g, b);
+                        output.SetPixel(x, y, newpix);
+                    }
+                }
+                input.UnlockBits();
+                output.UnlockBits();
+            }
+            
+            pictureBox.Image = temp;
+            updateHistographh();
+        }
 
     }
 }

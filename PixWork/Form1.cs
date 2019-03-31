@@ -27,11 +27,12 @@ namespace PixWork
 
         private void openImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changeProgress();
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 if(dlg.ShowDialog()==DialogResult.OK)
                 {
-                    Tab tb = new Tab(chart1);
+                    Tab tb = new Tab(chart1,chart2,chart3);
                     tb.loadImage(new Bitmap(dlg.FileName));
                     tb.filepath = dlg.FileName;
                     tb.filename = System.IO.Path.GetFileName(dlg.FileName);
@@ -39,14 +40,14 @@ namespace PixWork
                     tabControl1.TabPages.Add(tb.tab);
                     tabList.Add(tb);
                     tabControl1.SelectedTab = tb.tab;
-
+                     
                 }
             }
-
+            changeProgress();
 
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             foreach(Tab tb in tabList)
             {
@@ -60,8 +61,9 @@ namespace PixWork
         }
 
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveAsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
                 if(dlg.ShowDialog()==DialogResult.OK)
@@ -71,10 +73,10 @@ namespace PixWork
                     
                 }
             }
-
+            changeProgress();
         }
 
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void closeToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             int selectedTab = getSelectedTab();
             if(tabList[selectedTab].getChangeState()==false)
@@ -96,22 +98,28 @@ namespace PixWork
             return tabControl1.SelectedIndex; 
         }
 
-        private void grayscaleToolStripMenuItem_Click(object sender, EventArgs e)
+        private void grayscaleToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
-            tabList[selectedTab].convertToGray();            
+            tabList[selectedTab].convertToGray();
+            changeProgress();
         }
 
-        private void horizontalToolStripMenuItem_Click(object sender, EventArgs e)
+        private void horizontalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].flipHorizontal();
+            changeProgress();
         }
 
-        private void verticalToolStripMenuItem_Click(object sender, EventArgs e)
+        private void verticalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].flipVertical();
+            changeProgress();
         }
 
         private void invertToolStripMenuItem_Click(object sender, EventArgs e)
@@ -119,90 +127,117 @@ namespace PixWork
          
         }
 
-        private void cCWToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cCWToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].rotateImage90CCW();
+            changeProgress();
         }
 
-        private void cWToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cWToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].rotateImage90CW();
+            changeProgress();
         }
 
-        private void boxToolStripMenuItem_Click(object sender, EventArgs e)
+        private void boxMeanToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].meanBlur();
+            changeProgress();
         }
 
-        private void lowToolStripMenuItem_Click(object sender, EventArgs e)
+        private void lowToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
-            tabList[selectedTab].findEdgeLow();
+            tabList[selectedTab].findEdgeMedium();
+            changeProgress();
         }
 
-        private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mediumToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].findEdgeMedium();
         }
 
-        private void highToolStripMenuItem_Click(object sender, EventArgs e)
+        private void highToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             int selectedTab = getSelectedTab();
             tabList[selectedTab].findEdgeHigh();
+            changeProgress();
         }
 
-        private void gaussianToolStripMenuItem_Click(object sender, EventArgs e)
+        private void gaussian3X3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].gaussBlur();
+            changeProgress();
         }
 
-        private void gaussian5X5ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void gaussian5X5ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].gaussBlurHigh();
+            changeProgress();
         }
 
       
 
-        private void sobelEdgeToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void sobelHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].sobelHorizontal();
+            changeProgress();
         }
 
-        private void sobelEdgeVerticalToolStripMenuItem_Click(object sender, EventArgs e)
+        private void sobelVerticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].sobelVertical();
+            changeProgress();
         }
 
-        private void sharpenLowToolStripMenuItem_Click(object sender, EventArgs e)
+        private void lowToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].sharpen();
+            changeProgress();
         }
 
-        private void sharpenMediumToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mediumToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].sharpenMed();
+            changeProgress();
         }
 
-        private void sharpenHighToolStripMenuItem_Click(object sender, EventArgs e)
+        private void highToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].sharpenHigh();
+            changeProgress();
         }
 
-        private void embossToolStripMenuItem_Click(object sender, EventArgs e)
+        private void embossToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].emobss();
+            changeProgress();
         }
 
         private void imageToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -210,10 +245,12 @@ namespace PixWork
 
         }
 
-        private void histogramEquilizationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void histogramEquilizationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
-            tabList[selectedTab].performHisto();
+            tabList[selectedTab].performHisto(false);
+            changeProgress();
         }
 
         private void deNoiseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -261,23 +298,29 @@ namespace PixWork
 
         }
 
-        private void laplacianToolStripMenuItem_Click(object sender, EventArgs e)
+        private void laplacianToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].laplacian();
+            changeProgress();
         }
 
-        private void laplacianOfGaussianToolStripMenuItem_Click(object sender, EventArgs e)
+        private void laplacianOfGaussianToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].LGauss();
+            changeProgress();
 
         }
 
-        private void inverToolStripMenuItem_Click(object sender, EventArgs e)
+        private void invertToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].invert();
+            changeProgress();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -291,13 +334,7 @@ namespace PixWork
 
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int selectedTab = getSelectedTab();
-            trackBar1.Value = tabList[selectedTab].currentBrightness;
-            trackBar2.Value = tabList[selectedTab].currentContrast;
-        }
-
+        
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -313,56 +350,72 @@ namespace PixWork
 
         }
 
-        private void dilationToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void x3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].dilation(3,3);
+            changeProgress();
         }
 
-        private void erosionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void x3ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].erosion(3, 3);
+            changeProgress();
         }
 
-        private void dilation5X5ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void x5ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].dilation(5, 5);
+            changeProgress();
         }
 
-        private void erosion5X5ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void x5ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].erosion(5, 5);
+            changeProgress();
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void openToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].erosion(3, 3);
             tabList[selectedTab].dilation(3, 3);
+            changeProgress();
 
         }
 
-        private void closeToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void closeToolStripMenuItem3_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].dilation(3, 3);
             tabList[selectedTab].erosion(3, 3);
-           
+            changeProgress();
         }
 
         private void prewittHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].prewittHorizontal();
+            changeProgress();
         }
 
-        private void prewittVerticalToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void prewittToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].prewittVertical();
+            changeProgress();
         }
 
         private void chart1_Click(object sender, EventArgs e)
@@ -375,24 +428,31 @@ namespace PixWork
 
         }
 
-        private void previourTabToolStripMenuItem_Click(object sender, EventArgs e)
+        private void previousTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int prevTab = (getSelectedTab() - 1);
             if (prevTab < 0) prevTab += tabList.Count;
             tabControl1.SelectedTab = tabList[prevTab].tab;
+            changeProgress();
         }
 
-        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void undoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].undo();
+            changeProgress();
         }
 
-        private void showAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void nextTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            changeProgress();
             int nextTab = (getSelectedTab()+1) % tabList.Count;
-            tabControl1.SelectedTab = tabList[nextTab].tab;           
-            
+            tabControl1.SelectedTab = tabList[nextTab].tab;
+            changeProgress();
+
+
         }
 
         private void materialLabel1_Click(object sender, EventArgs e)
@@ -422,14 +482,18 @@ namespace PixWork
 
         private void trackBar1_Scroll(object sender, ScrollEventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].updateBrightness(trackBar1.Value);
+            changeProgress();
         }
 
         private void trackBar2_Scroll(object sender, ScrollEventArgs e)
         {
+            changeProgress();
             int selectedTab = getSelectedTab();
             tabList[selectedTab].updateContrast(trackBar2.Value);
+            changeProgress();
         }
 
         private void metroPanel1_Paint(object sender, PaintEventArgs e)
@@ -467,12 +531,101 @@ namespace PixWork
             Adjustments.Show(metroLink5, 0, metroLink5.Height);
         }
 
-        private void metroLink6_Click(object sender, EventArgs e)
+      
+        private void metroLink7_Click(object sender, EventArgs e)
+        {
+            Filters.Show(metroLink7, 0, metroLink7.Height);
+        }
+
+        private void metroLink6_Click_1(object sender, EventArgs e)
         {
             Help.Show(metroLink6, 0, metroLink6.Height);
         }
 
-      
+        private void skeletonizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changeProgress();
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].perimeter();
+            changeProgress();
+        }
+
+        private void tabControl1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            changeProgress();
+            int selectedTab = getSelectedTab();
+            trackBar1.Value = tabList[selectedTab].currentBrightness;
+            trackBar2.Value = tabList[selectedTab].currentContrast;
+            tabList[selectedTab].updateHistographh();
+            changeProgress();
+        }
+
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            Form2 f2 = new Form2(); 
+            f2.ShowDialog();
+
+        }
+
+        private void metroLink8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroLink10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroToggle1_CheckedChanged(object sender, EventArgs e)
+        {
+            changeProgress();
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].updateComponent(metroToggle1.Checked,metroToggle2.Checked,metroToggle3.Checked);
+            changeProgress();
+        }
+
+        private void metroToggle2_CheckedChanged(object sender, EventArgs e)
+        {
+            changeProgress();
+            int selectedTab = getSelectedTab();
+            tabList[selectedTab].updateComponent(metroToggle1.Checked, metroToggle2.Checked, metroToggle3.Checked);
+            changeProgress();
+        }
+
+        private void metroToggle3_CheckedChanged(object sender, EventArgs e)
+        {
+            changeProgress();
+                int selectedTab = getSelectedTab();
+                tabList[selectedTab].updateComponent(metroToggle1.Checked, metroToggle2.Checked, metroToggle3.Checked);
+            changeProgress();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void histogramEquilizationColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changeProgress();
+                int selectedTab = getSelectedTab();
+                tabList[selectedTab].performHisto(true);
+            changeProgress();
+        }
+
+
+        private void changeProgress()
+        {
+            if (metroLabel4.Text == "Idle")
+            {
+                metroLabel4.Text = "Processing....";
+            }
+            else
+                metroLabel4.Text = "Idle";
+        }
+
     }
         
 

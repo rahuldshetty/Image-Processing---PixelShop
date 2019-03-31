@@ -38,3 +38,4 @@ C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWo
 C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\MahApps.Metro.pdb
 C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\MahApps.Metro.xml
 C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.csproj.CopyComplete
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.Form2.resources
