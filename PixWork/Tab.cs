@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace PixWork
 {
     class Tab
     {
         public PictureBox pictureBox;
         public string filepath;
+        public string filename;
         public TabPage tab;
         public Bitmap bitmap;
         public int width, height,currentBrightness;
@@ -22,8 +24,12 @@ namespace PixWork
         private bool isGray;
 
         public int currentContrast { get; private set; }
+        System.Windows.Forms.DataVisualization.Charting.Chart chart1;
 
-        public Tab()
+        Stack<Bitmap> stack=new Stack<Bitmap>();
+
+
+        public Tab(System.Windows.Forms.DataVisualization.Charting.Chart  chart)
         {
             tab = new TabPage();
             pictureBox = new PictureBox();
@@ -37,7 +43,7 @@ namespace PixWork
             isGray = false;
             currentBrightness = 0;
             currentContrast = 0;
-
+            chart1 = chart;
         }
 
         public void loadImage(Bitmap image)
@@ -47,10 +53,13 @@ namespace PixWork
             pictureBox.Image = image;
             width = bitmap.Width;
             height = bitmap.Height;
+            findHistoGraph(bitmap);
+            stack.Push(bitmap);
         }
 
         public void preSave()
         {
+            stack.Push(bitmap);
             bitmap = new Bitmap(pictureBox.Image);
         }
 
@@ -212,6 +221,16 @@ namespace PixWork
             pictureBox.Image = bitmap;
             width = bitmap.Width;
             height = bitmap.Height;
+            findHistoGraph(bitmap);
+        }
+
+        internal void undo()
+        {
+            if (stack.Count != 0)
+            {
+                Bitmap top = stack.Pop();
+                updateChange(top);
+            }
         }
 
         public void rotateImage90CCW()
@@ -302,10 +321,11 @@ namespace PixWork
 
         public Bitmap HistEq(Bitmap img)
         {
+
             int w = img.Width;
             int h = img.Height;
             BitmapData sd = img.LockBits(new Rectangle(0, 0, w, h),
-                ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
             int bytes = sd.Stride * sd.Height;
             byte[] buffer = new byte[bytes];
             byte[] result = new byte[bytes];
@@ -339,11 +359,36 @@ namespace PixWork
                 }
             }
             Bitmap res = new Bitmap(w, h);
-            BitmapData rd = res.LockBits(new Rectangle(0, 0, w, h),
-                ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+            BitmapData rd = res.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
             Marshal.Copy(result, 0, rd.Scan0, bytes);
             res.UnlockBits(rd);
             return res;
+        }
+
+        internal void findHistoGraph(Bitmap img)
+        {
+          
+            chart1.Series["Series1"].Points.Clear();
+            BitmapData sd = img.LockBits(new Rectangle(0, 0, img.Width, img.Height),
+            ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            int bytes = sd.Stride * sd.Height;
+            byte[] buffer = new byte[bytes];
+            byte[] result = new byte[bytes];
+            Marshal.Copy(sd.Scan0, buffer, 0, bytes);
+            img.UnlockBits(sd);
+
+            int current = 0;
+            double[] pn = new double[256];
+            for (int p = 0; p < bytes; p += 4)
+            {
+                pn[buffer[p]]++;
+            }
+
+            for(int i=0;i<256;i++)
+            {
+                chart1.Series["Series1"].Points.AddXY(i, pn[i]);
+            }
+           
         }
 
         Bitmap applyKernal(int[,] kernel, float div)
@@ -396,6 +441,37 @@ namespace PixWork
      
         }
 
+        internal void prewittHorizontal()
+        {
+            Bitmap blur;
+
+            int[,] kernal = new int[3, 3]
+            {
+                {1,0,-1},
+                {1,0,-1},
+                {1,0,-1}
+            };
+
+            blur = applyKernal(kernal, 1);
+            updateChange(blur);
+        }
+
+
+        internal void prewittVertical()
+        {
+            Bitmap blur;
+
+            int[,] kernal = new int[3, 3]
+            {
+                {1,1,1},
+                {0,0,0},
+                {-1,-1,-1}
+            };
+
+            blur = applyKernal(kernal, 1);
+            updateChange(blur);
+        }
+
         internal void updateBrightness(int value)
         {
             Bitmap backup = new Bitmap( width,height);
@@ -426,6 +502,7 @@ namespace PixWork
                         if (avgB > 255) avgB = 255;
                         if (avgR > 255) avgR = 255;
                         if (avgG > 255) avgG = 255;
+
                         lockBitmap2.SetPixel(x, y, Color.FromArgb((int)(avgR), (int)(avgG), (int)(avgB)));
 
                     }
@@ -433,8 +510,10 @@ namespace PixWork
                 lockBitmap2.UnlockBits();
                 lockBitmap.UnlockBits();
                 pictureBox.Image = backup;
+                findHistoGraph(backup);
             }
-          
+           
+
         }
 
         internal void updateContrast(int value)
@@ -491,7 +570,7 @@ namespace PixWork
                 lockBitmap.UnlockBits();
                 pictureBox.Image = backup;
             }
-
+            findHistoGraph(new Bitmap(pictureBox.Image));
         }
 
         internal void dilation(int kernelWidth, int kernelHeight )

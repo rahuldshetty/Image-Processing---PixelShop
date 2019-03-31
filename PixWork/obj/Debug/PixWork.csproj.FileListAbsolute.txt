@@ -28,3 +28,13 @@ C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWo
 C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\PixWork.exe.config
 C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\PixWork.exe
 C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\PixWork.pdb
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\ControlzEx.dll
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\MahApps.Metro.dll
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\MetroFramework.Design.dll
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\MetroFramework.dll
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\MetroFramework.Fonts.dll
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\ControlzEx.pdb
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\MahApps.Metro.pdb
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\bin\Debug\MahApps.Metro.xml
+C:\Users\rahul\Desktop\things to do\IP\Image-Processing---PixelShop-master\PixWork\obj\Debug\PixWork.csproj.CopyComplete
