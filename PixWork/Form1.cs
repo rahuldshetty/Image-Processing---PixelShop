@@ -40,7 +40,7 @@ namespace PixWork
                     tabControl1.TabPages.Add(tb.tab);
                     tabList.Add(tb);
                     tabControl1.SelectedTab = tb.tab;
-                     
+                    metroToggle1.Checked = metroToggle2.Checked=metroToggle3.Checked = true;
                 }
             }
             changeProgress();
@@ -253,50 +253,7 @@ namespace PixWork
             changeProgress();
         }
 
-        private void deNoiseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void diffuseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pixelateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void waterSwirlToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void brigthnessAndContrastToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void sepiaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void solarizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void thresholdToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void oldPhotoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void laplacianToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -401,13 +358,6 @@ namespace PixWork
             changeProgress();
         }
 
-        private void prewittHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            changeProgress();
-            int selectedTab = getSelectedTab();
-            tabList[selectedTab].prewittHorizontal();
-            changeProgress();
-        }
 
 
         private void prewittToolStripMenuItem_Click(object sender, EventArgs e)
@@ -557,8 +507,16 @@ namespace PixWork
             trackBar1.Value = tabList[selectedTab].currentBrightness;
             trackBar2.Value = tabList[selectedTab].currentContrast;
             tabList[selectedTab].updateHistographh();
+
+            Tab tab = tabList[selectedTab];
+            metroToggle1.Checked =tab.redOn;
+            metroToggle2.Checked = tab.greenOn;
+            metroToggle3.Checked = tab.blueOn;
+
             changeProgress();
         }
+
+
 
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {

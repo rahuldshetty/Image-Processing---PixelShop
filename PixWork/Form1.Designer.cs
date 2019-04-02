@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea19 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea20 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea21 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.trackBar1 = new MetroFramework.Controls.MetroTrackBar();
@@ -49,6 +49,8 @@
             this.metroToggle3 = new MetroFramework.Controls.MetroToggle();
             this.metroToggle2 = new MetroFramework.Controls.MetroToggle();
             this.metroToggle1 = new MetroFramework.Controls.MetroToggle();
+            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
             this.File = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.openImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +90,6 @@
             this.laplacianToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.laplacianOfGaussianToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.Adjustments = new MetroFramework.Controls.MetroContextMenu(this.components);
-            this.histogramEquilizationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.invertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dilationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.x3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,9 +99,12 @@
             this.x5ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.histogramEquilizationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.histogramEquilizationColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Help = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.metroPanel3 = new MetroFramework.Controls.MetroPanel();
+            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this.metroLink6 = new MetroFramework.Controls.MetroLink();
             this.metroLink7 = new MetroFramework.Controls.MetroLink();
             this.metroLink5 = new MetroFramework.Controls.MetroLink();
@@ -109,12 +113,10 @@
             this.metroLink2 = new MetroFramework.Controls.MetroLink();
             this.metroLink1 = new MetroFramework.Controls.MetroLink();
             this.metroPanel4 = new MetroFramework.Controls.MetroPanel();
-            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.histogramEquilizationColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.metroPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.metroPanel2.SuspendLayout();
             this.File.SuspendLayout();
             this.Edit.SuspendLayout();
@@ -125,20 +127,18 @@
             this.Help.SuspendLayout();
             this.metroPanel3.SuspendLayout();
             this.metroPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
             this.SuspendLayout();
             // 
             // chart1
             // 
-            chartArea19.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea19);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Location = new System.Drawing.Point(102, 145);
             this.chart1.Name = "chart1";
-            series19.ChartArea = "ChartArea1";
-            series19.MarkerSize = 3;
-            series19.Name = "Series1";
-            this.chart1.Series.Add(series19);
+            series1.ChartArea = "ChartArea1";
+            series1.MarkerSize = 3;
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(108, 98);
             this.chart1.TabIndex = 4;
             this.chart1.Text = "chart1";
@@ -306,6 +306,36 @@
             this.metroToggle1.UseSelectable = true;
             this.metroToggle1.CheckedChanged += new System.EventHandler(this.metroToggle1_CheckedChanged);
             // 
+            // chart3
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea2);
+            this.chart3.Location = new System.Drawing.Point(102, 385);
+            this.chart3.Name = "chart3";
+            series2.ChartArea = "ChartArea1";
+            series2.MarkerSize = 3;
+            series2.Name = "Series1";
+            this.chart3.Series.Add(series2);
+            this.chart3.Size = new System.Drawing.Size(108, 98);
+            this.chart3.TabIndex = 4;
+            this.chart3.Text = "chart3";
+            this.chart3.Click += new System.EventHandler(this.chart1_Click);
+            // 
+            // chart2
+            // 
+            chartArea3.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea3);
+            this.chart2.Location = new System.Drawing.Point(102, 266);
+            this.chart2.Name = "chart2";
+            series3.ChartArea = "ChartArea1";
+            series3.MarkerSize = 3;
+            series3.Name = "Series1";
+            this.chart2.Series.Add(series3);
+            this.chart2.Size = new System.Drawing.Size(108, 98);
+            this.chart2.TabIndex = 4;
+            this.chart2.Text = "chart2";
+            this.chart2.Click += new System.EventHandler(this.chart1_Click);
+            // 
             // metroPanel2
             // 
             this.metroPanel2.Controls.Add(this.tabControl1);
@@ -330,11 +360,10 @@
             this.closeToolStripMenuItem2,
             this.exitToolStripMenuItem1});
             this.File.Name = "File";
-            this.File.Size = new System.Drawing.Size(183, 92);
-            this.File.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.File.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.File.Size = new System.Drawing.Size(183, 114);
             this.File.UseCustomBackColor = true;
             this.File.UseCustomForeColor = true;
-            this.File.UseStyleColors = true;
             // 
             // openImageToolStripMenuItem
             // 
@@ -372,9 +401,8 @@
             this.Edit.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.undoToolStripMenuItem1});
             this.Edit.Name = "Edit";
+            this.Edit.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.Edit.Size = new System.Drawing.Size(145, 26);
-            this.Edit.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.Edit.UseStyleColors = true;
             // 
             // undoToolStripMenuItem1
             // 
@@ -390,9 +418,8 @@
             this.nextTabToolStripMenuItem,
             this.previousTabToolStripMenuItem});
             this.View.Name = "View";
+            this.View.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.View.Size = new System.Drawing.Size(227, 48);
-            this.View.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.View.UseStyleColors = true;
             // 
             // nextTabToolStripMenuItem
             // 
@@ -419,9 +446,8 @@
             this.grayscaleToolStripMenuItem1,
             this.skeletonizeToolStripMenuItem});
             this.Image.Name = "Image";
+            this.Image.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.Image.Size = new System.Drawing.Size(126, 92);
-            this.Image.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.Image.UseStyleColors = true;
             // 
             // rotateToolStripMenuItem1
             // 
@@ -493,9 +519,8 @@
             this.laplacianToolStripMenuItem1,
             this.laplacianOfGaussianToolStripMenuItem1});
             this.Filters.Name = "Filters";
+            this.Filters.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.Filters.Size = new System.Drawing.Size(189, 136);
-            this.Filters.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.Filters.UseStyleColors = true;
             // 
             // blurToolStripMenuItem1
             // 
@@ -638,21 +663,13 @@
             this.histogramEquilizationToolStripMenuItem1,
             this.histogramEquilizationColorToolStripMenuItem});
             this.Adjustments.Name = "Adjustments";
+            this.Adjustments.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.Adjustments.Size = new System.Drawing.Size(227, 158);
-            this.Adjustments.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.Adjustments.UseStyleColors = true;
-            // 
-            // histogramEquilizationToolStripMenuItem1
-            // 
-            this.histogramEquilizationToolStripMenuItem1.Name = "histogramEquilizationToolStripMenuItem1";
-            this.histogramEquilizationToolStripMenuItem1.Size = new System.Drawing.Size(226, 22);
-            this.histogramEquilizationToolStripMenuItem1.Text = "Histogram Equilization B&W";
-            this.histogramEquilizationToolStripMenuItem1.Click += new System.EventHandler(this.histogramEquilizationToolStripMenuItem1_Click);
             // 
             // invertToolStripMenuItem
             // 
             this.invertToolStripMenuItem.Name = "invertToolStripMenuItem";
-            this.invertToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.invertToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.invertToolStripMenuItem.Text = "Invert";
             this.invertToolStripMenuItem.Click += new System.EventHandler(this.invertToolStripMenuItem_Click_1);
             // 
@@ -662,7 +679,7 @@
             this.x3ToolStripMenuItem,
             this.x5ToolStripMenuItem});
             this.dilationToolStripMenuItem1.Name = "dilationToolStripMenuItem1";
-            this.dilationToolStripMenuItem1.Size = new System.Drawing.Size(194, 22);
+            this.dilationToolStripMenuItem1.Size = new System.Drawing.Size(226, 22);
             this.dilationToolStripMenuItem1.Text = "Dilation";
             // 
             // x3ToolStripMenuItem
@@ -685,7 +702,7 @@
             this.x3ToolStripMenuItem1,
             this.x5ToolStripMenuItem1});
             this.erosionToolStripMenuItem1.Name = "erosionToolStripMenuItem1";
-            this.erosionToolStripMenuItem1.Size = new System.Drawing.Size(194, 22);
+            this.erosionToolStripMenuItem1.Size = new System.Drawing.Size(226, 22);
             this.erosionToolStripMenuItem1.Text = "Erosion";
             // 
             // x3ToolStripMenuItem1
@@ -705,25 +722,38 @@
             // openToolStripMenuItem1
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(194, 22);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(226, 22);
             this.openToolStripMenuItem1.Text = "Open";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
             // 
             // closeToolStripMenuItem3
             // 
             this.closeToolStripMenuItem3.Name = "closeToolStripMenuItem3";
-            this.closeToolStripMenuItem3.Size = new System.Drawing.Size(194, 22);
+            this.closeToolStripMenuItem3.Size = new System.Drawing.Size(226, 22);
             this.closeToolStripMenuItem3.Text = "Close";
             this.closeToolStripMenuItem3.Click += new System.EventHandler(this.closeToolStripMenuItem3_Click);
+            // 
+            // histogramEquilizationToolStripMenuItem1
+            // 
+            this.histogramEquilizationToolStripMenuItem1.Name = "histogramEquilizationToolStripMenuItem1";
+            this.histogramEquilizationToolStripMenuItem1.Size = new System.Drawing.Size(226, 22);
+            this.histogramEquilizationToolStripMenuItem1.Text = "Histogram Equilization B&W";
+            this.histogramEquilizationToolStripMenuItem1.Click += new System.EventHandler(this.histogramEquilizationToolStripMenuItem1_Click);
+            // 
+            // histogramEquilizationColorToolStripMenuItem
+            // 
+            this.histogramEquilizationColorToolStripMenuItem.Name = "histogramEquilizationColorToolStripMenuItem";
+            this.histogramEquilizationColorToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.histogramEquilizationColorToolStripMenuItem.Text = "Histogram Equilization Color";
+            this.histogramEquilizationColorToolStripMenuItem.Click += new System.EventHandler(this.histogramEquilizationColorToolStripMenuItem_Click);
             // 
             // Help
             // 
             this.Help.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem1});
             this.Help.Name = "Help";
+            this.Help.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.Help.Size = new System.Drawing.Size(108, 26);
-            this.Help.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.Help.UseStyleColors = true;
             // 
             // aboutToolStripMenuItem1
             // 
@@ -753,6 +783,16 @@
             this.metroPanel3.VerticalScrollbarBarColor = true;
             this.metroPanel3.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel3.VerticalScrollbarSize = 10;
+            // 
+            // metroLabel4
+            // 
+            this.metroLabel4.AutoSize = true;
+            this.metroLabel4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.metroLabel4.Location = new System.Drawing.Point(1167, 0);
+            this.metroLabel4.Name = "metroLabel4";
+            this.metroLabel4.Size = new System.Drawing.Size(30, 19);
+            this.metroLabel4.TabIndex = 10;
+            this.metroLabel4.Text = "Idle";
             // 
             // metroLink6
             // 
@@ -847,53 +887,6 @@
             this.metroPanel4.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel4.VerticalScrollbarSize = 10;
             // 
-            // chart2
-            // 
-            chartArea20.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea20);
-            this.chart2.Location = new System.Drawing.Point(102, 266);
-            this.chart2.Name = "chart2";
-            series20.ChartArea = "ChartArea1";
-            series20.MarkerSize = 3;
-            series20.Name = "Series1";
-            this.chart2.Series.Add(series20);
-            this.chart2.Size = new System.Drawing.Size(108, 98);
-            this.chart2.TabIndex = 4;
-            this.chart2.Text = "chart2";
-            this.chart2.Click += new System.EventHandler(this.chart1_Click);
-            // 
-            // chart3
-            // 
-            chartArea21.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea21);
-            this.chart3.Location = new System.Drawing.Point(102, 385);
-            this.chart3.Name = "chart3";
-            series21.ChartArea = "ChartArea1";
-            series21.MarkerSize = 3;
-            series21.Name = "Series1";
-            this.chart3.Series.Add(series21);
-            this.chart3.Size = new System.Drawing.Size(108, 98);
-            this.chart3.TabIndex = 4;
-            this.chart3.Text = "chart3";
-            this.chart3.Click += new System.EventHandler(this.chart1_Click);
-            // 
-            // histogramEquilizationColorToolStripMenuItem
-            // 
-            this.histogramEquilizationColorToolStripMenuItem.Name = "histogramEquilizationColorToolStripMenuItem";
-            this.histogramEquilizationColorToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.histogramEquilizationColorToolStripMenuItem.Text = "Histogram Equilization Color";
-            this.histogramEquilizationColorToolStripMenuItem.Click += new System.EventHandler(this.histogramEquilizationColorToolStripMenuItem_Click);
-            // 
-            // metroLabel4
-            // 
-            this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.metroLabel4.Location = new System.Drawing.Point(1167, 0);
-            this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(30, 19);
-            this.metroLabel4.TabIndex = 10;
-            this.metroLabel4.Text = "Idle";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -908,6 +901,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.metroPanel1.ResumeLayout(false);
             this.metroPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.metroPanel2.ResumeLayout(false);
             this.File.ResumeLayout(false);
             this.Edit.ResumeLayout(false);
@@ -919,8 +914,6 @@
             this.metroPanel3.ResumeLayout(false);
             this.metroPanel3.PerformLayout();
             this.metroPanel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -37,6 +37,8 @@ namespace PixWork
         Stack<Bitmap> stack = new Stack<Bitmap>();
         Stack<Boolean> grayscaleList = new Stack<Boolean>();
 
+        public bool redOn, blueOn, greenOn;
+
 
         public Tab(System.Windows.Forms.DataVisualization.Charting.Chart chart1, System.Windows.Forms.DataVisualization.Charting.Chart chart2, System.Windows.Forms.DataVisualization.Charting.Chart chart3)
         {
@@ -55,6 +57,12 @@ namespace PixWork
             chartr = chart1;
             chartg = chart2;
             chartb = chart3;
+
+
+
+            redOn = false;
+            blueOn = false;
+            greenOn = false;
         }
 
         public Boolean IsGray()
@@ -586,22 +594,7 @@ namespace PixWork
 
         }
 
-        internal void prewittHorizontal()
-        {
-            Bitmap blur;
-
-            int[,] kernal = new int[3, 3]
-            {
-                {1,0,-1},
-                {1,0,-1},
-                {1,0,-1}
-            };
-
-            blur = applyKernal(kernal, 1);
-            updateChange(blur);
-        }
-
-
+    
         internal void prewittVertical()
         {
             Bitmap blur;
@@ -1119,15 +1112,16 @@ namespace PixWork
         {
              Bitmap temp = Dilation(bitmap, 3, 3);
             temp = operation(bitmap, temp, '^');
-            /*
-            Bitmap skel = new Bitmap(bitmap.Width, bitmap.Height);
-            skel = operation(skel, temp, '|');
-            */updateChange(temp);
+            updateChange(temp);
 
         }
 
         internal void updateComponent(Boolean status,Boolean status2,Boolean status3)
         {
+
+            redOn = status;
+            greenOn = status2;
+            blueOn = status3;
 
             Bitmap temp = new Bitmap(width, height);
             LockBitmap output = new LockBitmap(temp);
